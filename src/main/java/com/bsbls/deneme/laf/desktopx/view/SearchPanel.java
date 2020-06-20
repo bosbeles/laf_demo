@@ -36,6 +36,7 @@ public class SearchPanel extends JPanel {
 
     private void initPanel() {
         setLayout(new GridBagLayout());
+        setBorder(BorderFactory.createLineBorder(new Color(97,97,97)));
         setPreferredSize(new Dimension(500, 300));
         //searchBox = new JTextField("Search");
         createSearchBox();
