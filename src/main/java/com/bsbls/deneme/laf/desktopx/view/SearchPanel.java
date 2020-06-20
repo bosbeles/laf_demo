@@ -2,6 +2,7 @@ package com.bsbls.deneme.laf.desktopx.view;
 
 import com.bsbls.deneme.laf.desktopx.action.model.ActionDictionary;
 import com.bsbls.deneme.laf.desktopx.action.model.ActionWrapper;
+import com.bsbls.deneme.laf.util.GuiUtil;
 
 import javax.swing.*;
 import javax.swing.border.AbstractBorder;
@@ -42,6 +43,12 @@ public class SearchPanel extends JPanel {
 
         SearchPanelUI layerUI = new SearchPanelUI(searchBox);
         tabbedPane = new JTabbedPane();
+        tabbedPane.addChangeListener(e -> {
+            Component selectedComponent = tabbedPane.getSelectedComponent();
+            if (selectedComponent instanceof TabContentPanel) {
+                ((TabContentPanel) selectedComponent).updatePanel();
+            }
+        });
         JLayer<JComponent> layer = new JLayer<>(tabbedPane, layerUI);
 
         GridBagConstraints gbc = new GridBagConstraints();
@@ -108,12 +115,12 @@ public class SearchPanel extends JPanel {
                     int m = 0xfefefefe;
                     int c2 = ((c0 & m) >>> 1) + ((c1 & m) >>> 1);
                     g.setColor(new Color(c2, true));
-                    g.drawString("Type to search commands...", ins.left, h / 2 + fm.getAscent() / 2 - 2);
+                    g.drawString(GuiUtil.getText("search.prompt"), ins.left, h / 2 + fm.getAscent() / 2 - 2);
                 }
             }
         };
 
-        searchBox.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        searchBox.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         Border outer = searchBox.getBorder();
         Border search = new IconBorder(new ImageIcon(getClass().getClassLoader().getResource("search.png")));
         searchBox.setBorder(
@@ -127,7 +134,7 @@ public class SearchPanel extends JPanel {
         List<ActionWrapper> searchResult = dictionary.search(text);
         System.out.println(searchResult);
         Component selectedComponent = tabbedPane.getSelectedComponent();
-        if(selectedComponent instanceof  TabContentPanel) {
+        if (selectedComponent instanceof TabContentPanel) {
             TabContentPanel contentPanel = (TabContentPanel) selectedComponent;
             List<String> actions = searchResult.stream().map(a -> a.getName()).collect(Collectors.toList());
             contentPanel.getMenu().getSearchMenu().setActionList(actions);

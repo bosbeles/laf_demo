@@ -2,6 +2,7 @@ package com.bsbls.deneme.laf.desktopx.action.factory;
 
 import com.bsbls.deneme.laf.desktopx.action.model.ActionWrapper;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -48,6 +49,7 @@ public class ActionFactory {
                                         .flatMap(k ->
                                                 Arrays.asList(k.toUpperCase(Locale.ENGLISH),
                                                         k.toUpperCase(Locale.ENGLISH)).stream()).collect(Collectors.toSet()))
+                        .lastUsedTime(Instant.now())
                         .build());
 
     }

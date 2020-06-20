@@ -23,7 +23,7 @@ public class ActionDictionary {
 
         List<ActionWrapper> frequentlyUsed = allWrappers.values().stream()
                 .sorted(Comparator.comparing((ActionWrapper a) -> a.getCounter()).reversed())
-                .collect(Collectors.toList());
+                .limit(5).collect(Collectors.toList());
 
         return frequentlyUsed;
     }

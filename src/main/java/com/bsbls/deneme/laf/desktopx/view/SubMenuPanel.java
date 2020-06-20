@@ -1,5 +1,6 @@
 package com.bsbls.deneme.laf.desktopx.view;
 
+import com.bsbls.deneme.laf.desktopx.action.controller.ActionController;
 import com.bsbls.deneme.laf.desktopx.action.model.ActionSubMenu;
 import com.bsbls.deneme.laf.util.Gbc;
 import com.bsbls.deneme.laf.util.WrapLayout;
@@ -9,10 +10,12 @@ import java.awt.*;
 
 public class SubMenuPanel extends JPanel {
 
+    private final ActionController controller;
     private ActionSubMenu subMenu;
 
-    public SubMenuPanel(ActionSubMenu subMenu) {
+    public SubMenuPanel(ActionSubMenu subMenu, ActionController controller) {
         this.subMenu = subMenu;
+        this.controller = controller;
         setOpaque(false);
         initPanel();
     }
@@ -27,7 +30,7 @@ public class SubMenuPanel extends JPanel {
         panel.setOpaque(false);
 
         for (String action : subMenu.getActionList()) {
-            MenuButton menuButton = new MenuButton(action);
+            MenuButton menuButton = new MenuButton(action, controller);
             panel.add(menuButton);
         }
 

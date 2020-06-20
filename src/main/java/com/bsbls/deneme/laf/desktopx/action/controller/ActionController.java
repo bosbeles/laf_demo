@@ -11,10 +11,20 @@ import java.util.Map;
 public class ActionController {
 
 
+    private final Map<String, ActionWrapper> actionWrapperMap;
     private Map<String, Action> actionMap = new HashMap<>();
 
-    public ActionController(Map<String, Action> actionMap) {
+    public ActionController(Map<String, Action> actionMap, Map<String, ActionWrapper> actionWrapperMap) {
         this.actionMap = actionMap;
+        this.actionWrapperMap = actionWrapperMap;
+    }
+
+    public void doAction(String action) {
+        ActionWrapper actionWrapper = actionWrapperMap.get(action);
+        if(actionWrapper != null) {
+            doAction(actionWrapper);
+        }
+
     }
 
     public void doAction(ActionWrapper wrapper) {

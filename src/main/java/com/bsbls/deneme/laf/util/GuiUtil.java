@@ -5,8 +5,18 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ResourceBundle;
 
 public class GuiUtil {
+
+
+    private static ResourceBundle resourceBundle = ResourceBundle.getBundle("actions");
+
+    public static String getText(String key) {
+        if (resourceBundle.containsKey(key)) {
+            return resourceBundle.getString(key);
+        } else return key;
+    }
 
     public static JPanel transparentPanel() {
         JPanel panel = new JPanel();

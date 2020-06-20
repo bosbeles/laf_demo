@@ -87,11 +87,28 @@ public class DesktopX extends JDesktopPane {
     }
 
     public void makeVisible(String actionName) {
-        JInternalFrame[] allFrames = this.getAllFrames();
-        Arrays.stream(allFrames)
-                .filter(f -> f.getName().equals(actionName))
-                .forEach(f -> f.setVisible(true));
+        frameList.stream()
+                .filter(f -> f.getTitle().equals(actionName))
+                .forEach(this::makeVisible);
 
+    }
+
+    private void makeVisible(JInternalFrame fr) {
+        if(fr.getDesktopPane() == null) {
+            add(fr);
+        }
+        fr.moveToFront();
+        fr.setVisible(true);
+        try {
+            fr.setSelected(true);
+            if (fr.isIcon()) {
+                fr.setIcon(false);
+            }
+            fr.setSelected(true);
+        } catch (PropertyVetoException ex) {
+
+        }
+        fr.requestFocus();
     }
 
     public InternalFrameX createFrame(String actionName) {

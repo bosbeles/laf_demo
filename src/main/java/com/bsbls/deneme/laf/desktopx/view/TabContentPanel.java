@@ -1,5 +1,6 @@
 package com.bsbls.deneme.laf.desktopx.view;
 
+import com.bsbls.deneme.laf.desktopx.action.controller.ActionController;
 import com.bsbls.deneme.laf.desktopx.action.model.ActionMenu;
 import com.bsbls.deneme.laf.desktopx.action.model.ActionSubMenu;
 import com.bsbls.deneme.laf.util.Gbc;
@@ -20,20 +21,34 @@ public class TabContentPanel extends JScrollPane {
 
 
     private final ActionMenu menu;
+    private final ActionController controller;
+    private Runnable beforeInit;
 
-    public TabContentPanel(ActionMenu menu) {
+    public TabContentPanel(ActionMenu menu, ActionController controller) {
         this.menu = menu;
+        this.controller = controller;
 
         setBorder(BorderFactory.createEmptyBorder());
 
         initPanel();
     }
 
+    public void setBeforeInit(Runnable beforeInit) {
+        this.beforeInit = beforeInit;
+    }
+
     public ActionMenu getMenu() {
         return menu;
     }
 
+
+
     public void updatePanel() {
+
+        if (beforeInit != null) {
+            beforeInit.run();
+        }
+
         initPanel();
     }
 
@@ -47,12 +62,12 @@ public class TabContentPanel extends JScrollPane {
 
         ActionSubMenu searchMenu = menu.getSearchMenu();
         if (!searchMenu.getActionList().isEmpty()) {
-            content.add(new SubMenuPanel(searchMenu), Gbc.constraints(i++, 0).applyAndBuild(gbcFunction));
+            content.add(new SubMenuPanel(searchMenu, controller), Gbc.constraints(i++, 0).applyAndBuild(gbcFunction));
         }
 
         List<ActionSubMenu> subMenus = menu.getSubMenus();
         for (ActionSubMenu subMenu : subMenus) {
-            content.add(new SubMenuPanel(subMenu), Gbc.constraints(i++, 0).applyAndBuild(gbcFunction));
+            content.add(new SubMenuPanel(subMenu, controller), Gbc.constraints(i++, 0).applyAndBuild(gbcFunction));
         }
 
         content.add(transparentPanel(), Gbc.constraints(i++, 0).fillBoth().build());
