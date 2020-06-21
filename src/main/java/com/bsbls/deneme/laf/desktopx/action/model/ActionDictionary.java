@@ -23,7 +23,7 @@ public class ActionDictionary {
 
         List<ActionWrapper> frequentlyUsed = allWrappers.values().stream()
                 .sorted(Comparator.comparing((ActionWrapper a) -> a.getCounter()).reversed())
-                .limit(5).collect(Collectors.toList());
+                .limit(6).collect(Collectors.toList());
 
         return frequentlyUsed;
     }
@@ -32,7 +32,7 @@ public class ActionDictionary {
 
         List<ActionWrapper> recentlyUsed = allWrappers.values().stream()
                 .sorted(Comparator.comparing((ActionWrapper a) -> a.getLastUsedTime()).reversed())
-                .limit(5).collect(Collectors.toList());
+                .limit(6).collect(Collectors.toList());
 
         return recentlyUsed;
     }
