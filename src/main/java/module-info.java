@@ -1,4 +1,5 @@
 module com.bsbsls.deneme.laf {
+    exports com.bsbls.deneme.laf.substance;
     requires java.desktop;
     requires static lombok;
     requires com.formdev.flatlaf;

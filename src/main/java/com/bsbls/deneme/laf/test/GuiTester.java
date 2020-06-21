@@ -6,7 +6,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 public class GuiTester {
     public static void test(JPanel panel) {
@@ -74,7 +73,7 @@ public class GuiTester {
 
         java.util.List<UIManager.LookAndFeelInfo> oldOnes = Arrays.asList(UIManager.getInstalledLookAndFeels());
 
-        addLaf(oldOnes, "Darcula", "com.bulenkov.darcula.DarculaLaf");
+        addLaf(oldOnes, "My", "com.bsbls.deneme.laf.substance.MyLookAndFeel");
 
         addLaf(oldOnes, "FlatLight", "com.formdev.flatlaf.FlatLightLaf");
 

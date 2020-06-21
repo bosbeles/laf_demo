@@ -18,7 +18,20 @@ public class DesktopX extends JDesktopPane {
     public DesktopX() {
         createShortcuts();
 
+        this.setDesktopManager(new DefaultDesktopManager(){
+            @Override
+            public void iconifyFrame(JInternalFrame f) {
+                super.iconifyFrame(f);
+
+                JInternalFrame.JDesktopIcon icon = f.getDesktopIcon();
+                Dimension prefSize = icon.getPreferredSize();
+                icon.setBounds(f.getX(), f.getY(), prefSize.width, prefSize.height);
+            }
+        });
+
     }
+
+
 
     private void createShortcuts() {
         addShortcut("ctrl shift W", "action.window.closeAll", e -> {
