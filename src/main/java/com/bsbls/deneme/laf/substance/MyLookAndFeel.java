@@ -18,6 +18,7 @@ public class MyLookAndFeel extends SubstanceLookAndFeel {
      */
     public MyLookAndFeel(SubstanceSkin skin) {
         super(skin);
+
         initColorSchemes(skin);
     }
 
@@ -25,12 +26,16 @@ public class MyLookAndFeel extends SubstanceLookAndFeel {
         SubstanceSkin.ColorSchemes businessSchemes = SubstanceSkin
                 .getColorSchemes(this.getClass().getClassLoader().getResourceAsStream("org/pushingpixels/substance/api/skin/graphite.colorschemes"));
 
-        SubstanceColorScheme activeScheme = businessSchemes.get("Graphite Active");
+        SubstanceColorScheme activeScheme = businessSchemes.get("Graphite Aqua");
         SubstanceColorScheme enabledScheme = businessSchemes.get("Graphite Enabled");
         SubstanceColorScheme disabledScheme = businessSchemes.get("Graphite Disabled");
 
         SubstanceColorSchemeBundle bundle = new SubstanceColorSchemeBundle(activeScheme, enabledScheme, disabledScheme);
-        bundle.registerColorScheme(new MyColorScheme(), SubstanceSlices.ColorSchemeAssociationKind.MARK, ComponentState.ENABLED, ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED, ComponentState.ROLLOVER_ARMED);
+        MyColorScheme myColorScheme = new MyColorScheme();
+
+        bundle.registerColorScheme(myColorScheme, SubstanceSlices.ColorSchemeAssociationKind.MARK, ComponentState.ENABLED, ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED, ComponentState.ROLLOVER_ARMED);
+        bundle.registerColorScheme(new MyColorScheme2(), SubstanceSlices.ColorSchemeAssociationKind.BORDER, ComponentState.SELECTED);
+
         skin.registerDecorationAreaSchemeBundle(bundle, SubstanceSlices.DecorationAreaType.NONE, SubstanceSlices.DecorationAreaType.GENERAL);
 
     }

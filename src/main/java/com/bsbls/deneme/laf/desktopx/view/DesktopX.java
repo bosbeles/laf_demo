@@ -4,10 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.beans.PropertyVetoException;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Consumer;
 
 public class DesktopX extends JDesktopPane {
@@ -15,22 +13,7 @@ public class DesktopX extends JDesktopPane {
 
     private List<InternalFrameX> frameList = new ArrayList<>();
 
-    public DesktopX() {
-        createShortcuts();
-
-        this.setDesktopManager(new DefaultDesktopManager(){
-            @Override
-            public void iconifyFrame(JInternalFrame f) {
-                super.iconifyFrame(f);
-
-                JInternalFrame.JDesktopIcon icon = f.getDesktopIcon();
-                Dimension prefSize = icon.getPreferredSize();
-                icon.setBounds(f.getX(), f.getY(), prefSize.width, prefSize.height);
-            }
-        });
-
-    }
-
+    private static Random random = new Random();
 
 
     private void createShortcuts() {
@@ -108,22 +91,20 @@ public class DesktopX extends JDesktopPane {
 
     }
 
-    private void makeVisible(JInternalFrame fr) {
-        if(fr.getDesktopPane() == null) {
-            add(fr);
-        }
-        fr.moveToFront();
-        fr.setVisible(true);
-        try {
-            fr.setSelected(true);
-            if (fr.isIcon()) {
-                fr.setIcon(false);
-            }
-            fr.setSelected(true);
-        } catch (PropertyVetoException ex) {
+    public DesktopX() {
+        createShortcuts();
 
-        }
-        fr.requestFocusInWindow();
+        this.setDesktopManager(new DefaultDesktopManager() {
+            @Override
+            public void iconifyFrame(JInternalFrame f) {
+                super.iconifyFrame(f);
+
+                JInternalFrame.JDesktopIcon icon = f.getDesktopIcon();
+                Dimension prefSize = icon.getPreferredSize();
+                icon.setBounds(f.getX(), f.getY(), prefSize.width * 2, prefSize.height);
+            }
+        });
+
     }
 
     public InternalFrameX createFrame(String actionName) {
@@ -159,19 +140,48 @@ public class DesktopX extends JDesktopPane {
         return previous;
     }
 
-
     private static InternalFrameX createInternalFrame(JDesktopPane desktopPane, String name) {
 
         InternalFrameX iFrame = new InternalFrameX(name, true, true, true, true);
+        iFrame.setMaximizable(random.nextBoolean());
         iFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         iFrame.setLayout(new FlowLayout());
         iFrame.add(new JTextField(10));
         iFrame.add(new JButton("Deneme"));
         iFrame.add(new JCheckBox("Deneme"));
+        iFrame.add(new JComboBox<String>(new String[]{"A", "B", "C"}));
+        iFrame.add(new JList<>());
+        String data[][] = {{"101", "Amit", "670000"},
+                {"102", "Jai", "780000"},
+                {"102", "Jai", "780000"},
+                {"102", "Jai", "780000"},
+                {"101", "Sachin", "700000"}};
+        String column[] = {"ID", "NAME", "SALARY"};
+        JTable table = new JTable(data, column);
+        iFrame.add(table);
+
         iFrame.setSize(200, 150);
         iFrame.setLocation((int) (Math.random() * 500), (int) (Math.random() * 500));
         desktopPane.add(iFrame);
         return iFrame;
 
+    }
+
+    private void makeVisible(JInternalFrame fr) {
+        if (fr.getDesktopPane() == null) {
+            add(fr);
+        }
+        fr.moveToFront();
+        fr.setVisible(true);
+        try {
+            fr.setSelected(true);
+            if (fr.isIcon()) {
+                fr.setIcon(false);
+            }
+            fr.setSelected(true);
+        } catch (PropertyVetoException ex) {
+
+        }
+        fr.requestFocusInWindow();
     }
 }

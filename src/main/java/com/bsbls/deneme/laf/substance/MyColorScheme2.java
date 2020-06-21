@@ -7,7 +7,7 @@ import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
 
 import java.awt.*;
 
-public class MyColorScheme implements SubstanceColorScheme {
+public class MyColorScheme2 implements SubstanceColorScheme {
 
     /**
      * The main ultra-light color.
@@ -32,7 +32,7 @@ public class MyColorScheme implements SubstanceColorScheme {
     /**
      * The main dark color.
      */
-    private static final Color mainDarkColor = new Color(11, 1, 38);
+    private static final Color mainDarkColor = new Color(135, 175, 218);
 
     /**
      * The main ultra-dark color.
@@ -43,7 +43,6 @@ public class MyColorScheme implements SubstanceColorScheme {
      * The foreground color.
      */
     private static final Color foregroundColor = Color.white;
-    private static final Color FOCUS_RING_COLOR = new Color(135, 175, 218);
 
     /**
      * Indicates whether this color scheme is dark.
@@ -64,7 +63,7 @@ public class MyColorScheme implements SubstanceColorScheme {
      * Constructs the basic functionality of a color scheme.
      *
      */
-    public MyColorScheme() {
+    public MyColorScheme2() {
         this.displayName = "My";
         this.isDark = true;
         this.derivedColorsResolver = new DerivedColorsResolverDark(this);
@@ -302,7 +301,7 @@ public class MyColorScheme implements SubstanceColorScheme {
 
         @Override
         public Color getFocusRingColor() {
-            return FOCUS_RING_COLOR;
+            return Color.RED;
             // return SubstanceColorUtilities.getAlphaColor(this.scheme.getForegroundColor(), 192);
         }
 
