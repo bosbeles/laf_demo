@@ -10,7 +10,6 @@ import com.bsbls.deneme.laf.desktopx.view.DesktopX;
 import com.bsbls.deneme.laf.desktopx.view.SearchPanel;
 import com.bsbls.deneme.laf.desktopx.view.TabContentPanel;
 import com.bsbls.deneme.laf.test.GuiTester;
-import com.bsbls.deneme.laf.util.GuiUtil;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 
 import javax.swing.*;
@@ -19,10 +18,9 @@ import java.awt.event.ActionEvent;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
-import static com.bsbls.deneme.laf.util.GuiUtil.*;
+import static com.bsbls.deneme.laf.util.GuiUtil.getText;
 
 public class Main {
     public static void main(String[] args) {
@@ -101,10 +99,10 @@ public class Main {
                     List<ActionWrapper> frequent = dictionary.frequent();
                     List<ActionWrapper> recent = dictionary.recent();
 
-                    ActionSubMenu frequently = new ActionSubMenu("Frequently Used");
+                    ActionSubMenu frequently = new ActionSubMenu(getText("menu.frequent"));
                     frequently.add(frequent.stream().map(ActionWrapper::getName).toArray(String[]::new));
 
-                    ActionSubMenu recently = new ActionSubMenu("Recently Used");
+                    ActionSubMenu recently = new ActionSubMenu(getText("menu.recent"));
                     recently.add(recent.stream().map(ActionWrapper::getName).toArray(String[]::new));
 
                     jreMenu.setSubMenus(Arrays.asList(frequently, recently));

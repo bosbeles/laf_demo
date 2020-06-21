@@ -4,8 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.beans.PropertyVetoException;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
-import java.util.*;
+import java.util.Set;
 import java.util.function.Consumer;
 
 public class DesktopX extends JDesktopPane {
@@ -108,7 +110,7 @@ public class DesktopX extends JDesktopPane {
         } catch (PropertyVetoException ex) {
 
         }
-        fr.requestFocus();
+        fr.requestFocusInWindow();
     }
 
     public InternalFrameX createFrame(String actionName) {
